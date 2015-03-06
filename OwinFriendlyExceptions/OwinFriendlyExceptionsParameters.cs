@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace OwinFriendlyExceptions
@@ -11,10 +10,5 @@ namespace OwinFriendlyExceptions
         }
 
         public IEnumerable<IExceptionProvider> SwallowedExceptionsProviders { get; set; }
-    }
-
-    public interface IExceptionProvider
-    {
-        Exception GetException(IDictionary<string, object> environment);
     }
 }

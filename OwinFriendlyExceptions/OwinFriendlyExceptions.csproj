@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
+    <Compile Include="IExceptionProvider.cs" />
     <Compile Include="ITransform.cs" />
     <Compile Include="ITransformsCollection.cs" />
     <Compile Include="ITransformsMap.cs" />
