@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OwinFriendlyExceptions")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A way to translate Exceptions to friendly HTTP responses")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Anders Åberg")]
 [assembly: AssemblyProduct("OwinFriendlyExceptions")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
