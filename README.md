@@ -9,7 +9,7 @@ A middleware that can translate exceptions into nice http resonses. This allows 
 ## Plugins for different frameworks
 Owin Friendly Exceptions is extensible and can work with frameworks that normally swallows exceptions.
 
-See https://github.com/abergs/OwinFriendlyException.Plugins for plugins to handle different frameworks (ASP.NET Web API etc...) 
+See [OwinFriendlyExceptions.Plugins](https://github.com/abergs/OwinFriendlyExceptions.Plugins) for plugins to handle different frameworks (ASP.NET Web API etc...) 
 
 ## Example
 ![Example code snippet](https://cloud.githubusercontent.com/assets/357283/6561001/44427032-c68e-11e4-8dae-f24146c9bf78.PNG)
