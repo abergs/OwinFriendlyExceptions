@@ -74,7 +74,7 @@ Install the package, and supply the WebApi Exception Provider to the OwinFriendl
 
 
 ### Contribute
-Contributions are we welcome. Just open an Issue or submit a PR. 
+Contributions are welcome. Just open an Issue or submit a PR. 
 
 ### Contact
 You can reach me at [@bigCheeseAnders](https://twitter.com/bigcheeseanders) or via my blog: [ideasof.andersaberg.com](http://ideasof.andersaberg.com/)
