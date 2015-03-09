@@ -1,6 +1,6 @@
 # Owin Friendly Exceptions Middleware
 
-A middleware that can translate exceptions into nice http resonses.
+A middleware that can translate exceptions into nice http resonses. This allows you to throw meaningfull exceptions from your framework, business code or other middlewares and translate the exceptions to nice and friendly http responses.
 
 ## Installation
 
