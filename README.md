@@ -6,6 +6,8 @@ A middleware that can translate exceptions into nice http resonses. This allows 
 
 `Install-package OwinFriendlyExceptions`
 
+See [Troubleshooting](#troubleshooting) for help with any installation errors
+
 ## Plugins for different frameworks
 Owin Friendly Exceptions is extensible and can work with frameworks that normally swallows exceptions.
 
@@ -72,6 +74,10 @@ Installation:
 3. `config.Services.Replace(typeof(IExceptionHandler), new WebApi2ExceptionHandler(exceptionsToHandle));`
 Install the package, and supply the WebApi Exception Provider to the OwinFriendlyExceptions extension method. In order for the Plugin to get swalloed wexceptions you have to replace the ExcepionHandler service in Web Api. The plugin takes a list of which exceptions we can handle, so WebApi can still take care of unhandled exceptions for you.
 
+
+
+### Troubleshooting
+When installing the Web Api Plugin, sometimes your System.Web.Http reference will mismatch. Use this Package Manager Console command to fix your Assembly Bining redirect:   `Get-Project YourProjectReferencingOwinFriendlyExceptions | Add-BindingRedirect`
 
 ### Contribute
 Contributions are welcome. Just open an Issue or submit a PR. 
