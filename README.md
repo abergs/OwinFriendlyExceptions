@@ -58,7 +58,7 @@ See [OwinFriendlyExceptions.Plugins](https://github.com/abergs/OwinFriendlyExcep
                     .To(HttpStatusCode.Unauthorized, "Invalid authentication", ex => ex.Message)
     
                     .Map<AuthorizationException>()
-                    .To(HttpStatusCode.Unauthorized, "Unauthorized", ex => ex.Message)
+                    .To(HttpStatusCode.Forbidden, "Forbidden", ex => ex.Message)
     
                 .Done();
             }
