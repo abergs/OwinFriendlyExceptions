@@ -55,7 +55,7 @@ namespace OwinFriendlyExceptions
 
                 // check if we can transform it, otherwise we should throw it
                 transformer = _transformsCollection.FindTransform(exception);
-                if (transformer != null)
+                if (transformer == null)
                 {
                     throw;
                 }
