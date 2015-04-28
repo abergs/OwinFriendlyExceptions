@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Messaging;
 
 namespace OwinFriendlyExceptions
 {
@@ -25,6 +26,12 @@ namespace OwinFriendlyExceptions
             return transform;
         }
 
+        public ITransformTo<Exception> Map(Func<Exception, bool> matching)
+        {
+            var transform = new Transform<Exception>(this, matching);
+            return transform;
+        }
+
         public ITransformsCollection Done()
         {
             return this;
@@ -38,26 +45,35 @@ namespace OwinFriendlyExceptions
 
         private class Transform<T> : ITransformTo<T>, ITransform where T : Exception
         {
-            private readonly TransformsCollectionBuilder _transformsCollectionBuilderBuilder;
+            private readonly TransformsCollectionBuilder _transformsCollectionBuilder;
             private Func<T, string> _contentGenerator;
 
             private string _reasonPhras;
             private HttpStatusCode _statusCode;
+            private Func<Exception, bool> matcher;
 
-            public Transform(TransformsCollectionBuilder transformsCollectionBuilderBuilder)
+            public Transform(TransformsCollectionBuilder transformsCollectionBuilder)
+                : this(transformsCollectionBuilder, (ex) => ex.GetType() == typeof(T))
             {
-                _transformsCollectionBuilderBuilder = transformsCollectionBuilderBuilder;
+            }
+
+            public Transform(TransformsCollectionBuilder transformsCollectionBuilder, Func<Exception, bool> matching)
+            {
+                this._transformsCollectionBuilder = transformsCollectionBuilder;
+                this.matcher = matching;
             }
 
             public string GetContent(Exception ex2)
             {
-                var ex = (T) ex2;
+                var ex = (T)ex2;
                 return _contentGenerator(ex);
             }
 
-            public bool CanHandle<T2>(T2 ex)
+            public bool CanHandle<T2>(T2 ex) where T2 : Exception
             {
-                return ex.GetType() == typeof (T);
+                //return ex.GetType() == typeof(T);
+                return matcher(ex);
+
             }
 
             public HttpStatusCode StatusCode { get; private set; }
@@ -68,8 +84,8 @@ namespace OwinFriendlyExceptions
                 StatusCode = statusCode;
                 ReasonPhrase = reasonPhrase;
                 _contentGenerator = contentGenerator;
-                _transformsCollectionBuilderBuilder._transforms.Add(this);
-                return _transformsCollectionBuilderBuilder;
+                _transformsCollectionBuilder._transforms.Add(this);
+                return _transformsCollectionBuilder;
             }
         }
     }
