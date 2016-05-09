@@ -71,7 +71,7 @@ namespace OwinFriendlyExceptions
         {
             string content = transform.GetContent(ex);
 
-            context.Response.ContentType = "text/plain";
+            context.Response.ContentType = transform.ContentType;
             context.Response.StatusCode = (int) transform.StatusCode;
             context.Response.ReasonPhrase = transform.ReasonPhrase;
             context.Response.ContentLength = content.Length;
