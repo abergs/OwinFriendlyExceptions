@@ -66,7 +66,7 @@ See [OwinFriendlyExceptions.Plugins](https://github.com/abergs/OwinFriendlyExcep
     }
     
 ### Specify content type
-By default, OwinFriendlyExceptions uses sets the response Content-Type to `text/plain`. To use a different type:
+By default, OwinFriendlyExceptions sets the response Content-Type to `text/plain`. To use a different type:
     
     .Map<SomeJsonException>()
     .To(HttpStatusCode.BadRequest, "This exception is json",
