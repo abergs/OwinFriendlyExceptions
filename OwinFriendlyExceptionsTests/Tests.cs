@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using OwinFriendlyExceptions;
 
@@ -41,6 +37,40 @@ namespace OwinFriendlyExceptionsTests
             var testException = new ArgumentException("ok");
 
             Assert.IsNotNull(coll.FindTransform(testException));
+        }
+
+        [Test]
+        public void ContentTypeDefaultsToTextPlain()
+        {
+            var builder = TransformsCollectionBuilder.Begin()
+                .Map(ex => ex.GetType().IsSubclassOf(typeof(Exception)))
+                .To(HttpStatusCode.OK, "Success", (ex) => ex.Message);
+
+            var coll = builder.Done();
+
+            var testException = new ArgumentException("ok");
+
+            var transform = coll.FindTransform(testException);
+            Assert.IsNotNull(transform);
+            Assert.AreEqual("text/plain", transform.ContentType);
+        }
+
+        [Test]
+        public void ContentTypeCanBeOverridden()
+        {
+            var json = "application/json";
+
+            var builder = TransformsCollectionBuilder.Begin()
+                .Map(ex => ex.GetType().IsSubclassOf(typeof(Exception)))
+                .To(HttpStatusCode.OK, "Success", (ex) => ex.Message, json);
+
+            var coll = builder.Done();
+
+            var testException = new ArgumentException("ok");
+
+            var transform = coll.FindTransform(testException);
+            Assert.IsNotNull(transform);
+            Assert.AreEqual(json, transform.ContentType);
         }
     }
 }

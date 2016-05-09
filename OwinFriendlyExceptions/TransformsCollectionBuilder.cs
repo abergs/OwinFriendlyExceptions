@@ -48,8 +48,6 @@ namespace OwinFriendlyExceptions
             private readonly TransformsCollectionBuilder _transformsCollectionBuilder;
             private Func<T, string> _contentGenerator;
 
-            private string _reasonPhras;
-            private HttpStatusCode _statusCode;
             private Func<Exception, bool> matcher;
 
             public Transform(TransformsCollectionBuilder transformsCollectionBuilder)
@@ -76,13 +74,16 @@ namespace OwinFriendlyExceptions
 
             }
 
+            public string ContentType { get; private set; }
+
             public HttpStatusCode StatusCode { get; private set; }
             public string ReasonPhrase { get; private set; }
 
-            public ITransformsMap To(HttpStatusCode statusCode, string reasonPhrase, Func<T, string> contentGenerator)
+            public ITransformsMap To(HttpStatusCode statusCode, string reasonPhrase, Func<T, string> contentGenerator, string contentType = "text/plain")
             {
                 StatusCode = statusCode;
                 ReasonPhrase = reasonPhrase;
+                ContentType = contentType;
                 _contentGenerator = contentGenerator;
                 _transformsCollectionBuilder._transforms.Add(this);
                 return _transformsCollectionBuilder;
