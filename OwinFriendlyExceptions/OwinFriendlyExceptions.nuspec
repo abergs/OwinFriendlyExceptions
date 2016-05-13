@@ -9,8 +9,8 @@
     <projectUrl>https://github.com/abergs/OwinFriendlyExceptions</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial release of OwinFriendlyExceptions</releaseNotes>
-    <copyright>Copyright 2015</copyright>
-    <tags>owin</tags>
+    <releaseNotes>Added contenttype support</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>owin exception</tags>
   </metadata>
 </package>
