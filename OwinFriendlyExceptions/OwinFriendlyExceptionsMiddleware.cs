@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 
@@ -74,7 +75,7 @@ namespace OwinFriendlyExceptions
             context.Response.ContentType = transform.ContentType;
             context.Response.StatusCode = (int) transform.StatusCode;
             context.Response.ReasonPhrase = transform.ReasonPhrase;
-            context.Response.ContentLength = content.Length;
+	        context.Response.ContentLength = Encoding.UTF8.GetByteCount(content);
             await context.Response.WriteAsync(content);
         }
 
