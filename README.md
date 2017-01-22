@@ -58,6 +58,11 @@ See [OwinFriendlyExceptions.Plugins](https://github.com/abergs/OwinFriendlyExcep
     
                     .Map<AuthorizationException>()
                     .To(HttpStatusCode.Forbidden, "Forbidden", ex => ex.Message)
+                    
+                    // Map all other exceptions if needed. 
+                    // Also it would be useful if you want to map exception to a known model.
+                    .MapAllOthers()
+                    .To(HttpStatusCode.InternalServerError, "Internal Server Error", ex => ex.Message)
     
                 .Done();
             }
