@@ -31,7 +31,7 @@ namespace OwinFriendlyExceptions
             return transform;
         }
 
-        public ITransformTo<Exception> MapOthers()
+        public ITransformTo<Exception> MapAllOthers()
         {
             return Map<Exception>();
         }
@@ -74,7 +74,7 @@ namespace OwinFriendlyExceptions
             public bool CanHandle<T2>(T2 ex) where T2 : Exception
             {
                 var result = _matcher(ex);
-                if (!result) // Made possible Other Exceptions handling if delegate was defined
+                if (!result) 
                     result = _matcher(new Exception());
                 return result;
             }
