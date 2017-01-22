@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Runtime.Remoting.Messaging;
 
 namespace OwinFriendlyExceptions
-{
+{    
     public class TransformsCollectionBuilder : ITransformsMap, ITransformsCollection
     {
         private readonly List<ITransform> _transforms = new List<ITransform>();
@@ -32,6 +31,11 @@ namespace OwinFriendlyExceptions
             return transform;
         }
 
+        public ITransformTo<Exception> MapAllOthers()
+        {
+            return Map<Exception>();
+        }
+
         public ITransformsCollection Done()
         {
             return this;
@@ -48,7 +52,7 @@ namespace OwinFriendlyExceptions
             private readonly TransformsCollectionBuilder _transformsCollectionBuilder;
             private Func<T, string> _contentGenerator;
 
-            private Func<Exception, bool> matcher;
+            private readonly Func<Exception, bool> _matcher;
 
             public Transform(TransformsCollectionBuilder transformsCollectionBuilder)
                 : this(transformsCollectionBuilder, (ex) => ex.GetType() == typeof(T))
@@ -57,21 +61,22 @@ namespace OwinFriendlyExceptions
 
             public Transform(TransformsCollectionBuilder transformsCollectionBuilder, Func<Exception, bool> matching)
             {
-                this._transformsCollectionBuilder = transformsCollectionBuilder;
-                this.matcher = matching;
+                _transformsCollectionBuilder = transformsCollectionBuilder;
+                _matcher = matching;
             }
 
             public string GetContent(Exception ex2)
             {
-                var ex = (T)ex2;
+                T ex = (T)ex2;
                 return _contentGenerator(ex);
             }
 
             public bool CanHandle<T2>(T2 ex) where T2 : Exception
             {
-                //return ex.GetType() == typeof(T);
-                return matcher(ex);
-
+                var result = _matcher(ex);
+                if (!result) 
+                    result = _matcher(new Exception());
+                return result;
             }
 
             public string ContentType { get; private set; }

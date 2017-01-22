@@ -14,8 +14,7 @@ Owin Friendly Exceptions is extensible and can work with frameworks that normall
 See [OwinFriendlyExceptions.Plugins](https://github.com/abergs/OwinFriendlyExceptions.Plugins) for plugins to handle different frameworks (ASP.NET Web API etc...) 
 
 ## Example
-![Example code snippet](https://cloud.githubusercontent.com/assets/357283/6561001/44427032-c68e-11e4-8dae-f24146c9bf78.PNG)
-
+```cs
     using System;
     using System.Net;
     using Api.Exceptions;
@@ -59,19 +58,24 @@ See [OwinFriendlyExceptions.Plugins](https://github.com/abergs/OwinFriendlyExcep
     
                     .Map<AuthorizationException>()
                     .To(HttpStatusCode.Forbidden, "Forbidden", ex => ex.Message)
+                    
+                    // Map all other exceptions if needed. 
+                    // Also it would be useful if you want to map exception to a known model.
+                    .MapAllOthers()
+                    .To(HttpStatusCode.InternalServerError, "Internal Server Error", ex => ex.Message)
     
                 .Done();
             }
         }
     }
-    
+```    
 ### Specify content type
 By default, OwinFriendlyExceptions sets the response Content-Type to `text/plain`. To use a different type:
-    
+```cs    
     .Map<SomeJsonException>()
     .To(HttpStatusCode.BadRequest, "This exception is json",
         ex => JsonConvert.SerializeObject(ex.Message), "application/json")
-
+```
 
 ### [Web Api 2 plugin](https://github.com/abergs/OwinFriendlyExceptions.Plugins)
 
