@@ -1,0 +1,1 @@
+nuget pack .\OwinFriendlyExceptions.csproj -Prop Configuration=Release
