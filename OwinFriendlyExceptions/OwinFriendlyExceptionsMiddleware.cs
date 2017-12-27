@@ -64,19 +64,19 @@ namespace OwinFriendlyExceptions
 
             if (transformer != null)
             {
-                await TransformException(context, transformer, exception);
+                TransformException(context, transformer, exception);
             }
         }
 
-        private async Task TransformException(OwinContext context, ITransform transform, Exception ex)
+        private void TransformException(OwinContext context, ITransform transform, Exception ex)
         {
             string content = transform.GetContent(ex);
 
             context.Response.ContentType = transform.ContentType;
             context.Response.StatusCode = (int) transform.StatusCode;
             context.Response.ReasonPhrase = transform.ReasonPhrase;
-	        context.Response.ContentLength = Encoding.UTF8.GetByteCount(content);
-            await context.Response.WriteAsync(content);
+	    context.Response.ContentLength = Encoding.UTF8.GetByteCount(content);
+            context.Response.Write(content);
         }
 
         private Exception GetSwallowedException(IOwinContext context)
