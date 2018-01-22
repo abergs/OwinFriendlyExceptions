@@ -94,5 +94,13 @@ When installing the Web Api Plugin, sometimes your System.Web.Http reference wil
 ### Contribute
 Contributions are welcome. Just open an Issue or submit a PR. 
 
+When publishing nugets:
+
+* Make sure to set your API key. nuget setApiKey XXX\_FROM_NUGET_PORTAL.
+* Open in VS, bump Assembly Version.
+* Build in Release.
+* Run OwinFriendlyExceptions\pack.cmd
+* Run OwinFriendlyExceptions\push.cmd [package-name-path]
+
 ### Contact
-You can reach me at [@bigCheeseAnders](https://twitter.com/bigcheeseanders) or via my blog: [ideasof.andersaberg.com](http://ideasof.andersaberg.com/)
+You can reach me at [@andersaberg](https://twitter.com/andersaberg) or via my blog: [ideasof.andersaberg.com](http://ideasof.andersaberg.com/)
